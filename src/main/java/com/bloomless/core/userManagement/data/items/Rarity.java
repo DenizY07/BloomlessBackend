@@ -1,4 +1,4 @@
-package com.smartsced.core.managment.data;
+package com.smartsced.core.managment.data.items;
 
 public enum Rarity {
     COMMON{
