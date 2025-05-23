@@ -1,4 +1,4 @@
-package com.smartsced.core.managment.rest.dtos;
+package com.bloomless.core.userManagement.rest.dtos;
 
 import lombok.Data;
 

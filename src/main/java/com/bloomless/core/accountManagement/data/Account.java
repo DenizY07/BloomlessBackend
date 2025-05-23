@@ -1,6 +1,6 @@
-package com.smartsced.core.managment.data;
+package com.bloomless.core.userManagement.data;
 
-import com.smartsced.core.managment.data.items.Item;
+import com.bloomless.core.gameManagement.data.items.Item;
 import lombok.Data;
 
 import java.util.List;

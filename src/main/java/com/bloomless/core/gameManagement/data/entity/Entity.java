@@ -1,4 +1,4 @@
-package com.smartsced.core.managment.data.entity;
+package com.bloomless.core.userManagement.data.entity;
 
 import lombok.Data;
 

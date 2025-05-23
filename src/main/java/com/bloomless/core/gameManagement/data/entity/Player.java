@@ -1,4 +1,4 @@
-package com.smartsced.core.managment.data.entity;
+package com.bloomless.core.userManagement.data.entity;
 
 public class Player extends Entity{
     private double luckyHitChance;
