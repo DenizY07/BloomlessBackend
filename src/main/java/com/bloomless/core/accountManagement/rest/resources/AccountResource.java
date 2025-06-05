@@ -1,9 +1,9 @@
-package com.bloomless.core.userManagement.rest.resources;
+package com.bloomless.core.accountManagement.rest.resources;
 
 import lombok.Data;
 
 @Data
-public class UserResource {
+public class AccountResource {
     private String username;
     private String password;
 }

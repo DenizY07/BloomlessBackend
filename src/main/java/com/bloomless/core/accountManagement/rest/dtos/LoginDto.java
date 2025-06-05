@@ -1,4 +1,4 @@
-package com.bloomless.core.userManagement.rest.dtos;
+package com.bloomless.core.accountManagement.rest.dtos;
 
 import lombok.Data;
 

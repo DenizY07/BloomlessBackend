@@ -1,4 +1,4 @@
-package com.bloomless.core.userManagement.data.items;
+package com.bloomless.core.gameManagement.data.items;
 
 public enum Rarity {
     COMMON{

@@ -1,4 +1,4 @@
-package com.bloomless.core.userManagement.rest.dtos;
+package com.bloomless.core.accountManagement.rest.dtos;
 
 import lombok.Data;
 
@@ -6,6 +6,6 @@ import lombok.Data;
 public class RegisterDto {
     private String username;
     private String password;
-    private String passwordAgain;
+    private String passwordConfirmation;
     private String email;
 }

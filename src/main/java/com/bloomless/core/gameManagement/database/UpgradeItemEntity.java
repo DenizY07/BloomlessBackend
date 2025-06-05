@@ -1,4 +1,13 @@
 package com.bloomless.core.gameManagement.database;
 
-public class UpgradeItemEntity {
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "upgradeItem")
+public class UpgradeItemEntity extends ItemEntity {
+    private int givenXP;
+
 }

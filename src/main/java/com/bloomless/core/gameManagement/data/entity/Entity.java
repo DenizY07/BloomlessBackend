@@ -1,4 +1,4 @@
-package com.bloomless.core.userManagement.data.entity;
+package com.bloomless.core.gameManagement.data.entity;
 
 import lombok.Data;
 

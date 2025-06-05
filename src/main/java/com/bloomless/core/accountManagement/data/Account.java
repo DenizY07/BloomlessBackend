@@ -1,4 +1,4 @@
-package com.bloomless.core.userManagement.data;
+package com.bloomless.core.accountManagement.data;
 
 import com.bloomless.core.gameManagement.data.items.Item;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class Account {
-    private long id;
+    private Long id;
     private String username;
     private String password;
     private String email;

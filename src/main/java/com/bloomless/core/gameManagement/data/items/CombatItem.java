@@ -1,10 +1,10 @@
-package com.bloomless.core.userManagement.data.items;
+package com.bloomless.core.gameManagement.data.items;
 
 import lombok.Data;
 
 @Data
-public class CombatItem extends Item{
+public class CombatItem extends Item {
     private int level;
     private int xp;
-    private boolean passive;
+    private String passive;
 }

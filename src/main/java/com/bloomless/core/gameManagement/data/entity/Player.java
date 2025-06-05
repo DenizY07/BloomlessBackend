@@ -1,6 +1,6 @@
-package com.bloomless.core.userManagement.data.entity;
+package com.bloomless.core.gameManagement.data.entity;
 
-public class Player extends Entity{
+public class Player extends Entity {
     private double luckyHitChance;
     private boolean doubleHit;
     private boolean defShred;
