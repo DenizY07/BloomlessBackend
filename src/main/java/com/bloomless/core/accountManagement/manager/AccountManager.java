@@ -3,6 +3,8 @@ package com.bloomless.core.accountManagement.manager;
 import com.bloomless.core.accountManagement.database.AccountEntity;
 import com.bloomless.core.accountManagement.database.repositories.AccountRepository;
 import com.bloomless.core.accountManagement.exceptions.*;
+import com.bloomless.core.accountManagement.mapper.AccountMapper;
+import com.bloomless.core.accountManagement.rest.dtos.LoginDto;
 import com.bloomless.core.accountManagement.rest.dtos.RegisterDto;
 import com.bloomless.core.accountManagement.rest.resources.AccountResource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,36 +17,44 @@ public class AccountManager {
     @Autowired
     AccountRepository accountRepository;
 
+    AccountMapper mapper = new AccountMapper();
 
-    public AccountResource registerChecker(RegisterDto registerDto) {
-        Optional<AccountEntity> byUsername = accountRepository.findByUsername(registerDto.getUsername());
-        if (byUsername.isPresent()) {
+    public AccountEntity saveToRepository(AccountEntity entity){
+        return accountRepository.save(entity);
+    }
+
+    public AccountEntity findEntityInRepository(String username){
+        return accountRepository.findByUsername(username).get();
+    }
+
+    public RegisterDto registerChecker(RegisterDto registerDto) {
+
+        if (accountRepository.findByUsername(registerDto.getUsername()).isPresent()) {
             throw new UsernameAlreadyExisting("Benutzername ist bereits vergeben");
         }
 
-        Optional<AccountEntity> byEmail = accountRepository.findByEmail(registerDto.getEmail());
-        if (byEmail.isPresent()) {
+        if (accountRepository.findByEmail(registerDto.getEmail()).isPresent()) {
             throw new EmailAlreadyExisting("E-Mail ist bereits vergeben");
         }
 
         if (!registerDto.getPassword().equals(registerDto.getPasswordConfirmation())) {
-            throw new PasswordNotMatching("Passwort stimmt nicht mit der Bestätigung überein");
+            throw new PasswordNotMatching("Passwörter stimmen nicht überein");
         }
 
-        return null;
+        return registerDto;
     }
 
 
-    public AccountEntity loginChecker(String username, String password) {
-        Optional<AccountEntity> userOpt = accountRepository.findByUsername(username);
-        if (userOpt.isEmpty()) {
+    public LoginDto loginChecker(LoginDto loginDto) {
+        if (accountRepository.findByUsername(loginDto.getUsername()).isEmpty()) {
             throw new UsernameNotFound("Benutzername wurde nicht gefunden");
         }
-        AccountEntity user = userOpt.get();
-        if (!user.getPassword().equals(password)) {
-            throw new PasswordNotMatching("Passwort ist falsch");
+
+        if (!accountRepository.findByUsername(loginDto.getUsername()).get().getPassword().equals(loginDto.getPassword())) {
+            throw new PasswordNotMatching("Passwort stimmt nicht überein");
         }
-        return user;
+
+        return loginDto;
     }
 
     /*public void loginChecker(RegisterDto registerDto) {

@@ -1,57 +1,21 @@
-package com.bloomless.core.accountManagement;
+package com.bloomless.core.accountManagement.mapper;
 
 import com.bloomless.core.accountManagement.data.Account;
 import com.bloomless.core.accountManagement.database.AccountEntity;
-import com.bloomless.core.accountManagement.manager.AccountManager;
-import com.bloomless.core.accountManagement.mapper.AccountMapper;
-import com.bloomless.core.accountManagement.rest.dtos.LoginDto;
-import com.bloomless.core.accountManagement.rest.dtos.RegisterDto;
 import com.bloomless.core.accountManagement.rest.resources.AccountResource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.bloomless.core.gameManagement.ItemService;
+import com.bloomless.core.gameManagement.data.items.Item;
+import com.bloomless.core.gameManagement.database.ItemEntity;
+import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
-@Service
-public class AccountService {
-    @Autowired
-    AccountManager manager;
+@Data
+public class AccountMapper {
+    ItemService itemService = new ItemService();
 
-
-    AccountMapper mapper = new AccountMapper();
-
-    public AccountResource register(RegisterDto registerDto){
-        RegisterDto accDto = manager.registerChecker(registerDto);
-
-        Account newAccount = new Account();
-
-        newAccount.setId(-1L);
-        newAccount.setUsername(accDto.getUsername());
-        newAccount.setPassword(accDto.getPassword());
-        newAccount.setEmail(accDto.getEmail());
-        newAccount.setAccountLevel(0);
-        newAccount.setXp(0);
-        newAccount.setHighestStage(0);
-        newAccount.setProfileImage("standard");
-        newAccount.setCurrency(300);
-        newAccount.setInventory(new ArrayList<>());
-
-
-        AccountEntity newEntity = this.manager.saveToRepository(mapper.convertAccountToAccountEntity(newAccount));
-        return mapper.convertAccountToAccountResource(mapper.convertAccountEntityToAccount(newEntity));
-    }
-
-    public AccountResource login(LoginDto loginDto) {
-        String username = loginDto.getUsername();
-        AccountEntity newEntity = manager.findEntityInRepository(username);
-        return mapper.convertAccountToAccountResource(mapper.convertAccountEntityToAccount(newEntity));
-    }
-
-
-
-
-
-    /*public AccountResource convertAccountToAccountResource(Account account){
+    public AccountResource convertAccountToAccountResource(Account account){
         AccountResource accountResource = new AccountResource();
         accountResource.setPassword(account.getPassword());
         accountResource.setUsername(account.getUsername());
@@ -99,5 +63,5 @@ public class AccountService {
         }
         result.setInventory(itemList);
         return result;
-    }*/
+    }
 }

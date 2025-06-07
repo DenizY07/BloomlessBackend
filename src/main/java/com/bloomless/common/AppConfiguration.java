@@ -1,6 +1,7 @@
 package com.bloomless.common;
 
 import com.bloomless.core.accountManagement.AccountService;
+import com.bloomless.core.accountManagement.manager.AccountManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
