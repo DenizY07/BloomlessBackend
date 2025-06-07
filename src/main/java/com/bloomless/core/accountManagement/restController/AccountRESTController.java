@@ -22,8 +22,8 @@ public class AccountRESTController {
         return accountService.login(loginDto);
     }
 
-    @PostMapping("bloomless/user/register")
-    public AccountResource register(@Valid @RequestBody RegisterDto registerDto) {
+    @PostMapping(value ="bloomless/user/register")
+    public AccountResource register(@RequestBody RegisterDto registerDto){
         return accountService.register(registerDto);
     }
 }
