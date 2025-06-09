@@ -4,13 +4,11 @@ import com.bloomless.core.accountManagement.database.AccountEntity;
 import com.bloomless.core.accountManagement.database.repositories.AccountRepository;
 import com.bloomless.core.accountManagement.exceptions.*;
 import com.bloomless.core.accountManagement.mapper.AccountMapper;
+import com.bloomless.core.accountManagement.rest.dtos.AccountUpdateDto;
 import com.bloomless.core.accountManagement.rest.dtos.LoginDto;
 import com.bloomless.core.accountManagement.rest.dtos.RegisterDto;
-import com.bloomless.core.accountManagement.rest.resources.AccountResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class AccountManager {
@@ -23,8 +21,19 @@ public class AccountManager {
         return accountRepository.save(entity);
     }
 
-    public AccountEntity findEntityInRepository(String username){
+    public AccountEntity findEntityInRepositoryByUsername(String username){
         return accountRepository.findByUsername(username).get();
+    }
+
+    public AccountEntity findEntityInRepositoryById(long id){
+        return accountRepository.findById(id).get();
+    }
+
+    public AccountUpdateDto updateChecker(AccountUpdateDto updateDto){
+        if (accountRepository.findByUsername(updateDto.getUsername()).isEmpty()){
+            throw new AccountNotFound("Account wurde nicht gefunden");
+        }
+        return updateDto;
     }
 
     public RegisterDto registerChecker(RegisterDto registerDto) {

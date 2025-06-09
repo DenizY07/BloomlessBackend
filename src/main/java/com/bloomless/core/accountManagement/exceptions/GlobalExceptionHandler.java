@@ -33,4 +33,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handlePasswordNotFound(PasswordNotFound ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+    @ExceptionHandler(AccountNotFound.class)
+    public ResponseEntity<String> handleAccountNotFound(AccountNotFound ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }

@@ -12,6 +12,8 @@ public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String type;
+    private String name;
     @Enumerated(EnumType.STRING)
     private Rarity rarity;
 }

@@ -3,6 +3,7 @@ package com.bloomless.core.accountManagement.database;
 import com.bloomless.core.gameManagement.data.items.Item;
 import com.bloomless.core.gameManagement.database.ItemEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -27,7 +28,8 @@ public class AccountEntity {
     private String profileImage;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "account_id") //in der item tabelle
+    @JoinColumn(name = "account_id")
+    @NotNull
     private List<ItemEntity> inventory = new ArrayList<>();
 
 }
