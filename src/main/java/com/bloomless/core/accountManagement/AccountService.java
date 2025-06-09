@@ -8,9 +8,12 @@ import com.bloomless.core.accountManagement.rest.dtos.AccountUpdateDto;
 import com.bloomless.core.accountManagement.rest.dtos.LoginDto;
 import com.bloomless.core.accountManagement.rest.dtos.RegisterDto;
 import com.bloomless.core.accountManagement.rest.resources.AccountResource;
+import com.bloomless.core.gameManagement.data.items.DMGItem;
+import com.bloomless.core.gameManagement.data.items.HPItem;
 import com.bloomless.core.gameManagement.data.items.Item;
 import com.bloomless.core.gameManagement.database.ItemEntity;
 import com.bloomless.core.gameManagement.rest.dtos.ItemDto;
+import com.bloomless.core.levelSystem.LevelUp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +58,64 @@ public class AccountService {
     public AccountResource updateAccount(AccountUpdateDto updateDto){
         AccountEntity updateEntity = manager.findEntityInRepositoryByUsername(manager.updateChecker(updateDto).getUsername());
 
+        // LevelUp-Logik
+        LevelUp.LevelUpResult levelUpResult = LevelUp.addXpAndLevelUp(updateDto.getAccountLevel(), updateDto.getXp(), 0);
+        updateEntity.setAccountLevel(levelUpResult.level);
+        updateEntity.setXp(levelUpResult.xp);
+
+        updateEntity.setHighestStage(updateDto.getHighestStage());
+        updateEntity.setCurrency(updateDto.getCurrency());
+        updateEntity.setProfileImage(updateDto.getProfileImage());
+
+        /*OHNE LEVEL ITEM SYSTEM
+        List<ItemDto> inventory = updateDto.getInventory();
+        if (inventory == null) {
+            inventory = new ArrayList<>();
+        }
+
+        List<ItemEntity> itemEntityList = inventory.stream()
+                .map(item -> mapper.getItemMapper().convertItemToItemEntity(mapper.getItemMapper().convertItemDtoToItem(item)))
+                .collect(Collectors.toList());*/
+
+        // Item-LevelUp-Logik anwenden
+        List<ItemDto> inventory = updateDto.getInventory();
+        if (inventory == null) {
+            inventory = new ArrayList<>();
+        }
+
+        List<ItemEntity> itemEntityList = inventory.stream()
+                .map(itemDto -> {
+                    // Item aus DTO erzeugen
+                    Item item = mapper.getItemMapper().convertItemDtoToItem(itemDto);
+
+                    // LevelUp-Logik für Items anwenden (z.B. nur für DMGItem/HPItem)
+                    if (item instanceof DMGItem dmg) {
+                        LevelUp.LevelUpResult itemLevelUp = LevelUp.addXpAndLevelUp(dmg.getLevel(), dmg.getXp(), 0);
+                        dmg.setLevel(itemLevelUp.level);
+                        dmg.setXp(itemLevelUp.xp);
+                    } else if (item instanceof HPItem hp) {
+                        LevelUp.LevelUpResult itemLevelUp = LevelUp.addXpAndLevelUp(hp.getLevel(), hp.getXp(), 0);
+                        hp.setLevel(itemLevelUp.level);
+                        hp.setXp(itemLevelUp.xp);
+                    }
+                    // ItemEntity erzeugen
+                    return mapper.getItemMapper().convertItemToItemEntity(item);
+                })
+                .collect(Collectors.toList());
+
+        updateEntity.getInventory().clear();
+        updateEntity.getInventory().addAll(itemEntityList);
+
+        AccountEntity updatedEntity = manager.saveToRepository(updateEntity);
+
+
+        return mapper.convertAccountToAccountResource(mapper.convertAccountEntityToAccount(updatedEntity));
+    }
+
+    //UPDATE OHNE LEVEL SYSTEM
+    /*public AccountResource updateAccount(AccountUpdateDto updateDto){
+        AccountEntity updateEntity = manager.findEntityInRepositoryByUsername(manager.updateChecker(updateDto).getUsername());
+
         updateEntity.setAccountLevel(updateDto.getAccountLevel());
         updateEntity.setXp(updateDto.getXp());
         updateEntity.setHighestStage(updateDto.getHighestStage());
@@ -76,59 +137,6 @@ public class AccountService {
         AccountEntity updatedEntity = manager.saveToRepository(updateEntity);
         return mapper.convertAccountToAccountResource(mapper.convertAccountEntityToAccount(updatedEntity));
 
-    }
-
-
-
-
-
-    /*public AccountResource convertAccountToAccountResource(Account account){
-        AccountResource accountResource = new AccountResource();
-        accountResource.setPassword(account.getPassword());
-        accountResource.setUsername(account.getUsername());
-        return accountResource;
-    }
-
-    public AccountEntity convertAccountToAccountEntity(Account account){
-        AccountEntity result = new AccountEntity();
-
-        if (account.getId() != -1){
-            result.setId(account.getId());
-        }
-
-        result.setUsername(account.getUsername());
-        result.setPassword(account.getPassword());
-        result.setEmail(account.getEmail());
-        result.setAccountLevel(account.getAccountLevel());
-        result.setXp(account.getXp());
-        result.setHighestStage(account.getHighestStage());
-        result.setCurrency(account.getCurrency());
-        result.setProfileImage(account.getProfileImage());
-
-        List<ItemEntity> itemEntityList = new ArrayList<>();
-        for(Item item: account.getInventory()){
-            itemEntityList.add(itemService.convertItemToItemEntity(item));
-        }
-        result.setInventory(itemEntityList);
-        return result;
-    }
-
-    public Account convertAccountEntityToAccount(AccountEntity accountEntity){
-        Account result = new Account();
-        result.setId(accountEntity.getId());
-        result.setUsername(accountEntity.getUsername());
-        result.setEmail(accountEntity.getEmail());
-        result.setAccountLevel(accountEntity.getAccountLevel());
-        result.setXp(accountEntity.getXp());
-        result.setHighestStage(accountEntity.getHighestStage());
-        result.setCurrency(accountEntity.getCurrency());
-        result.setProfileImage(accountEntity.getProfileImage());
-
-        List<Item> itemList = new ArrayList<>();
-        for (ItemEntity entity : accountEntity.getInventory()){
-            itemList.add(itemService.convertItemEntityToItem(entity));
-        }
-        result.setInventory(itemList);
-        return result;
     }*/
+
 }
