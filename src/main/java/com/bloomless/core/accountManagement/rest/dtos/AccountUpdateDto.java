@@ -1,7 +1,6 @@
 package com.bloomless.core.accountManagement.rest.dtos;
 
-import com.bloomless.core.gameManagement.data.items.Item;
-import com.bloomless.core.gameManagement.rest.dtos.ItemDto;
+import com.bloomless.core.shopManagement.rest.dtos.ItemDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 

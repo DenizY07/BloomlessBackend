@@ -8,11 +8,12 @@ import com.bloomless.core.accountManagement.rest.dtos.AccountUpdateDto;
 import com.bloomless.core.accountManagement.rest.dtos.LoginDto;
 import com.bloomless.core.accountManagement.rest.dtos.RegisterDto;
 import com.bloomless.core.accountManagement.rest.resources.AccountResource;
-import com.bloomless.core.gameManagement.data.items.DMGItem;
-import com.bloomless.core.gameManagement.data.items.HPItem;
-import com.bloomless.core.gameManagement.data.items.Item;
-import com.bloomless.core.gameManagement.database.ItemEntity;
-import com.bloomless.core.gameManagement.rest.dtos.ItemDto;
+import com.bloomless.core.shopManagement.data.items.DMGItem;
+import com.bloomless.core.shopManagement.data.items.HPItem;
+import com.bloomless.core.shopManagement.data.items.Item;
+import com.bloomless.core.shopManagement.database.ItemEntity;
+import com.bloomless.core.shopManagement.database.ShopItemEntity;
+import com.bloomless.core.shopManagement.rest.dtos.ItemDto;
 import com.bloomless.core.levelSystem.LevelUp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class AccountService {
     AccountManager manager;
 
     AccountMapper mapper = new AccountMapper();
+
+    public AccountResource getAccountResourceById(Long accountId) {
+        AccountEntity entity = manager.findEntityInRepositoryById(accountId);
+        return mapper.convertAccountToAccountResource(mapper.convertAccountEntityToAccount(entity));
+    }
 
     public AccountResource register(RegisterDto registerDto){
         RegisterDto accDto = manager.registerChecker(registerDto);
@@ -55,6 +61,12 @@ public class AccountService {
         return mapper.convertAccountToAccountResource(mapper.convertAccountEntityToAccount(loginEntity));
     }
 
+    public void addItemToInventory(Long accountId, ShopItemEntity shopItem) {
+        AccountEntity accountEntity = manager.findEntityInRepositoryById(accountId);
+        accountEntity.getInventory().add(shopItem);
+        manager.saveToRepository(accountEntity);
+    }
+
     public AccountResource updateAccount(AccountUpdateDto updateDto){
         AccountEntity updateEntity = manager.findEntityInRepositoryByUsername(manager.updateChecker(updateDto).getUsername());
 
@@ -67,17 +79,6 @@ public class AccountService {
         updateEntity.setCurrency(updateDto.getCurrency());
         updateEntity.setProfileImage(updateDto.getProfileImage());
 
-        /*OHNE LEVEL ITEM SYSTEM
-        List<ItemDto> inventory = updateDto.getInventory();
-        if (inventory == null) {
-            inventory = new ArrayList<>();
-        }
-
-        List<ItemEntity> itemEntityList = inventory.stream()
-                .map(item -> mapper.getItemMapper().convertItemToItemEntity(mapper.getItemMapper().convertItemDtoToItem(item)))
-                .collect(Collectors.toList());*/
-
-        // Item-LevelUp-Logik anwenden
         List<ItemDto> inventory = updateDto.getInventory();
         if (inventory == null) {
             inventory = new ArrayList<>();

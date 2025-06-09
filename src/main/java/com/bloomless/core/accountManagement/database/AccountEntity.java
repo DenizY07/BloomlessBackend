@@ -1,7 +1,6 @@
 package com.bloomless.core.accountManagement.database;
 
-import com.bloomless.core.gameManagement.data.items.Item;
-import com.bloomless.core.gameManagement.database.ItemEntity;
+import com.bloomless.core.shopManagement.database.ItemEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

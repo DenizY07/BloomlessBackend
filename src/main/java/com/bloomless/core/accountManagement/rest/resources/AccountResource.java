@@ -1,7 +1,6 @@
 package com.bloomless.core.accountManagement.rest.resources;
 
-import com.bloomless.core.gameManagement.rest.dtos.ItemDto;
-import com.bloomless.core.gameManagement.rest.resources.ItemResource;
+import com.bloomless.core.shopManagement.rest.dtos.ItemDto;
 import lombok.Data;
 
 import java.util.List;
