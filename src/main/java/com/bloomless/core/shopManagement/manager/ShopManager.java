@@ -20,15 +20,16 @@ public class ShopManager {
 
     private final Random random = new Random();
 
-    @PostConstruct
+    /*@PostConstruct
     public void init() {
         if (shopItemRepository.count() == 0) {
-            shopItemRepository.saveAll(createAllUniqueItems());
+            createAllUniqueItems();
         }
-    }
+    }*/
 
     public ShopItemEntity returnRandom() {
-        List<ShopItemEntity> allItems = shopItemRepository.findAll();
+        List<ShopItemEntity> allItems = new ArrayList<>();
+        shopItemRepository.findAll().forEach(allItems::add);
 
         List<ShopItemEntity> commons = new ArrayList<>();
         List<ShopItemEntity> uncommons = new ArrayList<>();
@@ -65,6 +66,13 @@ public class ShopManager {
     }
 
     public List<ShopItemEntity> createAllUniqueItems() {
+        if (shopItemRepository.count() > 0) {
+            // Nur aus DB laden, NICHT neu erzeugen!
+            List<ShopItemEntity> savedItems = new ArrayList<>();
+            shopItemRepository.findAll().forEach(savedItems::add);
+            return savedItems;
+        }
+
         List<ShopItemEntity> items = new ArrayList<>();
 
         // COMMON
@@ -182,8 +190,13 @@ public class ShopManager {
         excalibur.setItemCritDMG(60);
         items.add(excalibur);
 
+
+
         shopItemRepository.saveAll(items);
-        return items;
+
+        List<ShopItemEntity> savedItems = new ArrayList<>();
+        shopItemRepository.findAll().forEach(savedItems::add);
+        return savedItems;
     }
 
 }

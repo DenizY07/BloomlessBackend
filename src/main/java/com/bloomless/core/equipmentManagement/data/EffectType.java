@@ -1,4 +1,4 @@
-package com.bloomless.core.gameplayManagement.data;
+package com.bloomless.core.equipmentManagement.data;
 
 public enum EffectType {
     BURN{

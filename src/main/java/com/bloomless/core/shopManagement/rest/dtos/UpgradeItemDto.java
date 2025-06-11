@@ -6,4 +6,5 @@ import lombok.Data;
 @Data
 public class UpgradeItemDto extends ItemDto{
     private int givenXP;
+    private Long id;
 }

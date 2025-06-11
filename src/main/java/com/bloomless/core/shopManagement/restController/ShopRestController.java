@@ -24,6 +24,12 @@ public class ShopRestController {
         return shopService.getRandomShopItem(accountId);
     }*/
 
+    @PostMapping("bloomless/admin/init-shop")
+    public String initShop() {
+        shopService.loadAllItems();
+        return "Shop initialized.";
+    }
+
     @PostMapping("bloomless/shop/pull")
     public ResponseEntity<AccountResource> pullRandomItem(@RequestParam Long accountId) {
         ShopItemEntity item = shopService.getRandomShopItem(accountId);
@@ -31,4 +37,5 @@ public class ShopRestController {
         AccountResource updatedAccount = accountService.getAccountResourceById(accountId);
         return ResponseEntity.ok(updatedAccount);
     }
+
 }

@@ -7,5 +7,6 @@ import lombok.Data;
 @Entity
 @Table(name = "upgradeItem")
 public class UpgradeItemEntity extends ItemEntity {
+    private Long id;
     private int givenXP;
 }

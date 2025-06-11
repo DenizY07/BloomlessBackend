@@ -1,5 +1,10 @@
 package com.bloomless.core.levelSystem;
 
+import com.bloomless.core.shopManagement.data.items.DMGItem;
+import com.bloomless.core.shopManagement.data.items.HPItem;
+import com.bloomless.core.shopManagement.data.items.Item;
+import com.bloomless.core.shopManagement.data.items.UpgradeItem;
+
 public class LevelUp {
 
     public static int getRequiredXpForNextLevel(int currentLevel) {
@@ -39,6 +44,37 @@ public class LevelUp {
             this.xp = xp;
             this.xpToNextLevel = xpToNextLevel;
         }
+    }
+
+    public Item levelUpItemWithUpgrade(Item item, UpgradeItem upgradeItem) {
+        if (item == null || upgradeItem == null) {
+            throw new IllegalArgumentException("Item oder UpgradeItem ist null");
+        }
+        if (!item.getRarity().equals(upgradeItem.getRarity())) {
+            throw new IllegalArgumentException("UpgradeItem und Item haben nicht die gleiche Rarity!");
+        }
+
+        int currentLevel;
+        int currentXp;
+        if (item instanceof DMGItem dmg) {
+            currentLevel = dmg.getLevel();
+            currentXp = dmg.getXp();
+            int newXp = currentXp + upgradeItem.getGivenXP();
+            LevelUp.LevelUpResult result = LevelUp.addXpAndLevelUp(currentLevel, newXp, 0);
+            dmg.setLevel(result.level);
+            dmg.setXp(result.xp);
+        } else if (item instanceof HPItem hp) {
+            currentLevel = hp.getLevel();
+            currentXp = hp.getXp();
+            int newXp = currentXp + upgradeItem.getGivenXP();
+            LevelUp.LevelUpResult result = LevelUp.addXpAndLevelUp(currentLevel, newXp, 0);
+            hp.setLevel(result.level);
+            hp.setXp(result.xp);
+        } else {
+            throw new IllegalArgumentException("Item-Typ nicht unterstützt!");
+        }
+
+        return item;
     }
 
 }

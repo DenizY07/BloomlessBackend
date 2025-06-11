@@ -17,6 +17,7 @@ public class ItemMapper {
     public Item convertItemEntityToItem(ItemEntity entity) {
         if (entity instanceof DMGItemEntity dmg) {
             DMGItem item = new DMGItem();
+            item.setId(entity.getId());
             item.setName(dmg.getName());
             item.setType("dmg");
             item.setRarity(dmg.getRarity());
@@ -29,6 +30,7 @@ public class ItemMapper {
             return item;
         } else if (entity instanceof HPItemEntity hp) {
             HPItem item = new HPItem();
+            item.setId(entity.getId());
             item.setName(hp.getName());
             item.setType("hp");
             item.setRarity(hp.getRarity());
@@ -41,6 +43,7 @@ public class ItemMapper {
             return item;
         } else if (entity instanceof UpgradeItemEntity up) {
             UpgradeItem item = new UpgradeItem();
+            item.setId(entity.getId());
             item.setName(up.getName());
             item.setType("upgrade");
             item.setRarity(up.getRarity());
@@ -54,6 +57,7 @@ public class ItemMapper {
     public ItemEntity convertItemToItemEntity(Item item) {
         if (item instanceof DMGItem dmg) {
             DMGItemEntity entity = new DMGItemEntity();
+            entity.setId(dmg.getId());
             entity.setName(dmg.getName());
             entity.setRarity(dmg.getRarity());
             entity.setLevel(dmg.getLevel());
@@ -65,6 +69,7 @@ public class ItemMapper {
             return entity;
         } else if (item instanceof HPItem hp) {
             HPItemEntity entity = new HPItemEntity();
+            entity.setId(hp.getId());
             entity.setName(hp.getName());
             entity.setRarity(hp.getRarity());
             entity.setLevel(hp.getLevel());
@@ -76,6 +81,7 @@ public class ItemMapper {
             return entity;
         } else if (item instanceof UpgradeItem up) {
             UpgradeItemEntity entity = new UpgradeItemEntity();
+            entity.setId(up.getId());
             entity.setName(up.getName());
             entity.setRarity(up.getRarity());
             entity.setGivenXP(up.getGivenXP());
@@ -88,6 +94,7 @@ public class ItemMapper {
     public Item convertItemDtoToItem(ItemDto dto) {
         if (dto instanceof DMGItemDto dmgDto) {
             DMGItem item = new DMGItem();
+            item.setId(dmgDto.getId());
             item.setName(dmgDto.getName());
             item.setType("dmg");
             item.setRarity(Rarity.valueOf(dmgDto.getRarity()));
@@ -100,6 +107,7 @@ public class ItemMapper {
             return item;
         } else if (dto instanceof HPItemDto hpDto) {
             HPItem item = new HPItem();
+            item.setId(hpDto.getId());
             item.setName(hpDto.getName());
             item.setType("hp");
             item.setRarity(Rarity.valueOf(hpDto.getRarity()));
@@ -112,6 +120,7 @@ public class ItemMapper {
             return item;
         } else if (dto instanceof UpgradeItemDto upgradeDto) {
             UpgradeItem item = new UpgradeItem();
+            item.setId(upgradeDto.getId());
             item.setName(upgradeDto.getName());
             item.setType("upgrade");
             item.setRarity(Rarity.valueOf(upgradeDto.getRarity()));
@@ -125,6 +134,7 @@ public class ItemMapper {
     public ItemResource convertItemToItemResource(Item item) {
         if (item instanceof DMGItem dmg) {
             DMGItemResource resource = new DMGItemResource();
+            resource.setId(dmg.getId());
             resource.setName(dmg.getName());
             resource.setType("dmg");
             resource.setRarity(dmg.getRarity().name());
@@ -137,6 +147,7 @@ public class ItemMapper {
             return resource;
         } else if (item instanceof HPItem hp) {
             HPItemResource resource = new HPItemResource();
+            resource.setId(hp.getId());
             resource.setName(hp.getName());
             resource.setType("hp");
             resource.setRarity(hp.getRarity().name());
@@ -149,11 +160,74 @@ public class ItemMapper {
             return resource;
         } else if (item instanceof UpgradeItem up) {
             UpgradeItemResource resource = new UpgradeItemResource();
+            resource.setId(up.getId());
             resource.setName(up.getName());
             resource.setType("upgrade");
             resource.setRarity(up.getRarity().name());
             resource.setGivenXP(up.getGivenXP());
             return resource;
+        }
+        return null;
+    }
+
+
+    public UpgradeItemEntity convertUpgradeItemToShopItemEntity(UpgradeItem item) {
+        if (item == null) return null;
+        UpgradeItemEntity entity = new UpgradeItemEntity();
+        entity.setName(item.getName());
+        entity.setType(item.getType());
+        entity.setRarity(item.getRarity());
+        entity.setGivenXP(item.getGivenXP());
+        return entity;
+    }
+
+    public UpgradeItem convertShopItemEntityToUpgradeItem(UpgradeItemEntity entity) {
+        if (entity == null) return null;
+        UpgradeItem item = new UpgradeItem();
+        item.setId(entity.getId());
+        item.setName(entity.getName());
+        item.setType(entity.getType());
+        item.setRarity(entity.getRarity());
+        item.setGivenXP(entity.getGivenXP());
+        return item;
+    }
+
+    public static ItemDto convertItemToItemDto(Item item) {
+        if (item == null) return null;
+        if (item instanceof DMGItem dmg) {
+            DMGItemDto dto = new DMGItemDto();
+            dto.setId(dmg.getId());
+            dto.setName(dmg.getName());
+            dto.setLevel(dmg.getLevel());
+            dto.setXp(dmg.getXp());
+            dto.setPassive(dmg.getPassive());
+            dto.setType("dmg");
+            dto.setRarity(dmg.getRarity().name());
+            dto.setItemDMG(dmg.getItemDMG());
+            dto.setItemCritRate(dmg.getItemCritRate());
+            dto.setItemCritDMG(dmg.getItemCritDMG());
+            return dto;
+        } else if (item instanceof HPItem hp) {
+            HPItemDto dto = new HPItemDto();
+            dto.setId(hp.getId());
+            dto.setName(hp.getName());
+            dto.setLevel(hp.getLevel());
+            dto.setXp(hp.getXp());
+            dto.setPassive(hp.getPassive());
+            dto.setType("hp");
+            dto.setRarity(hp.getRarity().name());
+            dto.setItemHP(hp.getItemHP());
+            dto.setItemDEF(hp.getItemDEF());
+            dto.setItemRegen(hp.getItemRegen());
+            return dto;
+        } else if (item instanceof UpgradeItem up) {
+            UpgradeItemDto dto = new UpgradeItemDto();
+            dto.setName(up.getName());
+            dto.setId(up.getId());
+            dto.setType("upgrade");
+            dto.setRarity(up.getRarity().name());
+            dto.setGivenXP(up.getGivenXP());
+            return dto;
         }
         return null;
     }

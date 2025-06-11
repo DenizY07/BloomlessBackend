@@ -1,12 +1,12 @@
-package com.bloomless.core.gameplayManagement.rest.dto;
+package com.bloomless.core.equipmentManagement.data;
 
-import com.bloomless.core.gameplayManagement.data.EffectType;
 import lombok.Data;
 
 @Data
-public class StatusEffectDto {
+public class StatusEffect {
     private Long id;
     private EffectType effectType;
     private int damagePerTurn;
     private int remainingTurns;
 }
+

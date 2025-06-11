@@ -1,6 +1,6 @@
-package com.bloomless.core.gameplayManagement.rest.resources;
+package com.bloomless.core.equipmentManagement.rest.resources;
 
-import com.bloomless.core.gameplayManagement.data.EffectType;
+import com.bloomless.core.equipmentManagement.data.EffectType;
 import lombok.Data;
 
 @Data

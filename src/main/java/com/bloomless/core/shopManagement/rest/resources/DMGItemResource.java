@@ -6,6 +6,7 @@ import lombok.Data;
 public class DMGItemResource extends ShopItemResource{
     private int level;
     private int xp;
+    private Long id;
     private String passive;
     private int itemDMG;
     private double itemCritRate;

@@ -1,12 +1,15 @@
-package com.bloomless.core.gameplayManagement.rest.resources;
+package com.bloomless.core.equipmentManagement.data;
 
-import com.bloomless.core.shopManagement.data.items.Item;
-import com.bloomless.core.shopManagement.rest.dtos.ItemDto;
+import com.bloomless.core.shopManagement.data.items.DMGItem;
+import com.bloomless.core.shopManagement.data.items.HPItem;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class CreatureResource {
+public class Actor {
     private Long id;
+    private String name;
     private int level;
     private int baseDMG;
     private int baseHP;
@@ -26,8 +29,11 @@ public class CreatureResource {
     private double dotDurationBoost;
     private double dotHeal;
 
-    private ItemDto dmgSlot1;
-    private ItemDto dmgSlot2;
-    private ItemDto hpSlot1;
-    private ItemDto hpSlot2;
+    private DMGItem dmgSlot1;
+    private DMGItem dmgSlot2;
+    private HPItem hpSlot1;
+    private HPItem hpSlot2;
+
+    private List<StatusEffect> statusEffects;
+
 }

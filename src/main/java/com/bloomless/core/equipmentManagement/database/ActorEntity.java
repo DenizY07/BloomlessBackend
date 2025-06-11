@@ -1,6 +1,7 @@
-package com.bloomless.core.gameplayManagement.database;
+package com.bloomless.core.equipmentManagement.database;
 
-import com.bloomless.core.shopManagement.database.ItemEntity;
+import com.bloomless.core.shopManagement.database.DMGItemEntity;
+import com.bloomless.core.shopManagement.database.HPItemEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,12 +9,12 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "creature")
-public class CreatureEntity {
+@Table(name = "actor")
+public class ActorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String name;
     private int level;
     private int baseDMG;
     private int baseHP;
@@ -35,19 +36,19 @@ public class CreatureEntity {
 
     @ManyToOne
     @JoinColumn(name = "dmg_slot1_id")
-    private ItemEntity dmgSlot1;
+    private DMGItemEntity dmgSlot1;
 
     @ManyToOne
     @JoinColumn(name = "dmg_slot2_id")
-    private ItemEntity dmgSlot2;
+    private DMGItemEntity dmgSlot2;
 
     @ManyToOne
     @JoinColumn(name = "hp_slot1_id")
-    private ItemEntity hpSlot1;
+    private HPItemEntity hpSlot1;
 
     @ManyToOne
     @JoinColumn(name = "hp_slot2_id")
-    private ItemEntity hpSlot2;
+    private HPItemEntity hpSlot2;
 
     @OneToMany(mappedBy = "creature", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StatusEffectEntity> activeEffects;

@@ -1,6 +1,6 @@
-package com.bloomless.core.gameplayManagement.database;
+package com.bloomless.core.equipmentManagement.database;
 
-import com.bloomless.core.gameplayManagement.data.EffectType;
+import com.bloomless.core.equipmentManagement.data.EffectType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,5 +18,5 @@ public class StatusEffectEntity {
 
     @ManyToOne
     @JoinColumn(name = "creature_id")
-    private CreatureEntity creature;
+    private ActorEntity creature;
 }
