@@ -28,7 +28,11 @@ public class ItemManager {
         return itemRepository.findByName(name).get();
     }
 
-    public UpgradeItemEntity itemSave(UpgradeItemEntity item) {
+    public UpgradeItemEntity upgradeItemSave(UpgradeItemEntity item) {
+        return itemRepository.save(item);
+    }
+
+    public ItemEntity itemSave(ItemEntity item) {
         return itemRepository.save(item);
     }
 

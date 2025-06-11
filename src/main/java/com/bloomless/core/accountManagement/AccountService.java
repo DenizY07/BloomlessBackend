@@ -47,27 +47,11 @@ public class AccountService {
         return accountMapper.convertAccountToAccountResource(accountMapper.convertAccountEntityToAccount(entity));
     }
 
-    public AccountResource giveTestUpgradeScroll(Long accountId) {
-        AccountEntity accountEntity = accountManager.findEntityInRepositoryById(accountId);
-        Account account = accountMapper.convertAccountEntityToAccount(accountEntity);
+    public AccountEntity findEntityInRepositoryById(Long id) {
+        return accountManager.findEntityInRepositoryById(id);
 
-        UpgradeItem testScroll = new UpgradeItem();
-        testScroll.setName("Test Upgrade Scroll");
-        testScroll.setType("upgrade");
-        testScroll.setRarity(Rarity.COMMON);
-        testScroll.setGivenXP(100);
-
-        account.getInventory().add(testScroll);
-
-        accountEntity.setInventory(
-                account.getInventory().stream()
-                        .map(accountMapper.getItemMapper()::convertItemToItemEntity)
-                        .collect(Collectors.toList())
-        );
-        accountManager.saveToRepository(accountEntity);
-
-        return accountMapper.convertAccountToAccountResource(account);
     }
+
 
 
     public AccountResource removeItemFromInventory(Long accountId, Long itemId) {
@@ -90,8 +74,6 @@ public class AccountService {
         return accountMapper.convertAccountToAccountResource(accountMapper.convertAccountEntityToAccount(accountEntity));
     }
 
-    // AccountService.java
-    // AccountService.java
 
     public AccountResource giveRandomUpgradeScroll(Long accountId) {
         AccountEntity accountEntity = accountManager.findEntityInRepositoryById(accountId);
@@ -112,7 +94,7 @@ public class AccountService {
 
         // Konvertiere zu Entity und speichere (ID wird von DB vergeben)
         UpgradeItemEntity entity = itemMapper.convertUpgradeItemToShopItemEntity(randomScroll);
-        UpgradeItemEntity savedEntity = itemManager.itemSave(entity);
+        UpgradeItemEntity savedEntity = itemManager.upgradeItemSave(entity);
 
         // Füge das Item dem Inventar hinzu
         account.getInventory().add(itemMapper.convertItemEntityToItem(savedEntity));
@@ -162,13 +144,12 @@ public class AccountService {
         newAccount.setXp(0);
         newAccount.setHighestStage(0);
         newAccount.setProfileImage("standard");
-        newAccount.setCurrency(300);
+        newAccount.setCurrency(3000);
 
         List<Item> list = new ArrayList<>();
         newAccount.setInventory(list);
 
         AccountEntity newEntity = this.accountManager.saveToRepository(accountMapper.convertAccountToAccountEntity(newAccount));
-
         Actor newActor = new Actor();
         newActor.setName(newEntity.getUsername());
         newActor.setLevel(newEntity.getAccountLevel());
@@ -191,6 +172,7 @@ public class AccountService {
         newActor.setDotDurationBoost(0);
         newActor.setDotHeal(0);
 
+
         equipmentManager.saveToRepository(actorMapper.convertActorToActorEntity(newActor));
         return accountMapper.convertAccountToAccountResource(accountMapper.convertAccountEntityToAccount(newEntity));
     }
@@ -203,7 +185,9 @@ public class AccountService {
 
     public void addItemToInventory(Long accountId, ShopItemEntity shopItem) {
         AccountEntity accountEntity = accountManager.findEntityInRepositoryById(accountId);
-        accountEntity.getInventory().add(shopItem);
+        List<ItemEntity> items = accountEntity.getInventory();
+        items.add(shopItem);
+        accountEntity.setInventory(items);
         accountManager.saveToRepository(accountEntity);
     }
 

@@ -46,11 +46,6 @@ public class AccountRESTController {
         return accountService.updateAccount(updateDto);
     }
 
-    @PostMapping("bloomless/admin/giveTestUpgradeScroll")
-    public AccountResource giveTestUpgradeScroll(@RequestParam Long accountId) {
-        return accountService.giveTestUpgradeScroll(accountId);
-    }
-
     @PostMapping("bloomless/player/giveRandomUpgradeScroll")
     public AccountResource giveRandomUpgradeScroll(@RequestParam Long accountId) {
         return accountService.giveRandomUpgradeScroll(accountId);

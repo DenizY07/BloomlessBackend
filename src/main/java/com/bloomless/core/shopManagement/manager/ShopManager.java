@@ -66,13 +66,6 @@ public class ShopManager {
     }
 
     public List<ShopItemEntity> createAllUniqueItems() {
-        if (shopItemRepository.count() > 0) {
-            // Nur aus DB laden, NICHT neu erzeugen!
-            List<ShopItemEntity> savedItems = new ArrayList<>();
-            shopItemRepository.findAll().forEach(savedItems::add);
-            return savedItems;
-        }
-
         List<ShopItemEntity> items = new ArrayList<>();
 
         // COMMON
@@ -193,10 +186,7 @@ public class ShopManager {
 
 
         shopItemRepository.saveAll(items);
-
-        List<ShopItemEntity> savedItems = new ArrayList<>();
-        shopItemRepository.findAll().forEach(savedItems::add);
-        return savedItems;
+        return items;
     }
 
 }

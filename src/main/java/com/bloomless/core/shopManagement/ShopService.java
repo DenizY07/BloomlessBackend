@@ -30,6 +30,7 @@ public class ShopService {
         return shopManager.returnRandom();
     }
 
+
     public void loadAllItems(){
         shopManager.createAllUniqueItems();
     }

@@ -14,10 +14,14 @@ public class ItemMapper {
         return (passive == null || passive.isBlank()) ? "keine Passive" : passive;
     }
 
-    public Item convertItemEntityToItem(ItemEntity entity) {
+
+    public ShopItem convertShopItemEntityToShopItem(ShopItemEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         if (entity instanceof DMGItemEntity dmg) {
             DMGItem item = new DMGItem();
-            item.setId(entity.getId());
+            item.setId(dmg.getId());
             item.setName(dmg.getName());
             item.setType("dmg");
             item.setRarity(dmg.getRarity());
@@ -30,7 +34,43 @@ public class ItemMapper {
             return item;
         } else if (entity instanceof HPItemEntity hp) {
             HPItem item = new HPItem();
-            item.setId(entity.getId());
+            item.setId(hp.getId());
+            item.setName(hp.getName());
+            item.setType("hp");
+            item.setRarity(hp.getRarity());
+            item.setLevel(hp.getLevel());
+            item.setXp(hp.getXp());
+            item.setPassive(getPassiveOrDefault(hp.getPassive()));
+            item.setItemHP(hp.getItemHP());
+            item.setItemDEF(hp.getItemDEF());
+            item.setItemRegen(hp.getItemRegen());
+            return item;
+        } else {
+            throw new IllegalArgumentException("Unbekannter ShopItemEntity-Typ: " + entity.getClass().getSimpleName());
+        }
+    }
+
+
+    public Item convertItemEntityToItem(ItemEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+        if (entity instanceof DMGItemEntity dmg) {
+            DMGItem item = new DMGItem();
+            item.setId(dmg.getId());
+            item.setName(dmg.getName());
+            item.setType("dmg");
+            item.setRarity(dmg.getRarity());
+            item.setLevel(dmg.getLevel());
+            item.setXp(dmg.getXp());
+            item.setPassive(getPassiveOrDefault(dmg.getPassive()));
+            item.setItemDMG(dmg.getItemDMG());
+            item.setItemCritRate(dmg.getItemCritRate());
+            item.setItemCritDMG(dmg.getItemCritDMG());
+            return item;
+        } else if (entity instanceof HPItemEntity hp) {
+            HPItem item = new HPItem();
+            item.setId(hp.getId());
             item.setName(hp.getName());
             item.setType("hp");
             item.setRarity(hp.getRarity());
@@ -43,14 +83,14 @@ public class ItemMapper {
             return item;
         } else if (entity instanceof UpgradeItemEntity up) {
             UpgradeItem item = new UpgradeItem();
-            item.setId(entity.getId());
+            item.setId(up.getId());
             item.setName(up.getName());
             item.setType("upgrade");
             item.setRarity(up.getRarity());
             item.setGivenXP(up.getGivenXP());
             return item;
         } else {
-            return null;
+            throw new IllegalArgumentException("Unbekannter ItemEntity-Typ: " + entity.getClass().getSimpleName());
         }
     }
 

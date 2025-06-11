@@ -41,7 +41,9 @@ public class AccountMapper {
 
         List<ItemEntity> itemEntityList = new ArrayList<>();
         for(Item item: account.getInventory()){
-            itemEntityList.add(itemMapper.convertItemToItemEntity(item));
+            ItemEntity entity = itemMapper.convertItemToItemEntity(item);
+            entity.setAccount(result); // <-- Beziehung setzen!
+            itemEntityList.add(entity);
         }
         result.setInventory(itemEntityList);
         return result;
