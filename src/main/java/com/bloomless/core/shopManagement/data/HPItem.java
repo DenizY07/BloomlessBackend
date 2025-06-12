@@ -1,9 +1,12 @@
-package com.bloomless.core.shopManagement.data.items;
+package com.bloomless.core.shopManagement.data;
+
 
 import lombok.Data;
 
 @Data
 public class HPItem extends ShopItem {
+
+
     private int level;
     private int xp;
     private Long id;
@@ -11,4 +14,6 @@ public class HPItem extends ShopItem {
     private int itemHP;
     private int itemDEF;
     private double itemRegen;
+
+
 }

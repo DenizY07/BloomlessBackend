@@ -89,7 +89,7 @@ public class GameplayService {
 
 
 
-    public List<RoundResultResource> fightRound(Long roundId) {
+    /*public List<RoundResultResource> fightRound(Long roundId) {
         RoundEntity round = gameplayManager.findRoundById(roundId);
         ActorEntity player = round.getPlayer();
         ActorEntity enemy = round.getEnemy();
@@ -278,6 +278,93 @@ public class GameplayService {
         // Rundenanzahl im RoundEntity speichern
         round.setRoundCount(roundCount - 1);
         gameplayManager.savePowerUpToRepository(round);
+
+        return roundResults;
+    }*/
+
+    public List<RoundResultResource> fightRound(Long roundId) {
+        List<RoundResultResource> roundResults = new ArrayList<>();
+        RoundEntity roundEntity = gameplayManager.findRoundById(roundId);
+
+        if (roundEntity == null) {
+            throw new IllegalArgumentException("Runde nicht gefunden!");
+        }
+
+        ActorEntity player = roundEntity.getPlayer();
+        ActorEntity enemy = roundEntity.getEnemy();
+
+        int roundCount = roundEntity.getRoundCount();
+        boolean playerAlive = true;
+        boolean enemyAlive = true;
+
+        // Beispielwerte, bitte durch deine Logik ersetzen!
+        int playerCurrentHP = player.getBaseHP();
+        int enemyCurrentHP = enemy.getBaseHP();
+
+        List<String> combatLog = new ArrayList<>();
+
+        while (playerAlive && enemyAlive && roundCount < 10) { // Maximal 10 Runden als Beispiel
+            roundCount++;
+
+            // Beispiel: Spieler greift an
+            int playerDamage = player.getBaseDMG();
+            boolean playerCrit = Math.random() < (player.getBaseCritRate() / 100.0);
+            if (playerCrit) playerDamage += player.getBaseCritDMG();
+            enemyCurrentHP -= playerDamage;
+            combatLog.add("Runde " + roundCount + ": Spieler greift an für " + playerDamage + " Schaden" + (playerCrit ? " (Kritisch!)" : ""));
+
+            // Beispiel: Gegner greift an, falls noch am Leben
+            int enemyDamage = enemy.getBaseDMG();
+            boolean enemyCrit = Math.random() < (enemy.getBaseCritRate() / 100.0);
+            if (enemyCrit) enemyDamage += enemy.getBaseCritDMG();
+            playerCurrentHP -= enemyDamage;
+            combatLog.add("Runde " + roundCount + ": Gegner greift an für " + enemyDamage + " Schaden" + (enemyCrit ? " (Kritisch!)" : ""));
+
+            // Status prüfen
+            playerAlive = playerCurrentHP > 0;
+            enemyAlive = enemyCurrentHP > 0;
+
+            // Rundenresultat speichern
+            RoundResultResource result = new RoundResultResource();
+            result.setRoundId(roundEntity.getId());
+            result.setStage(roundEntity.getStage());
+            result.setPlayer(player != null ? actorMapper.convertActorEntityToActor(player) : null);
+            result.setEnemy(enemy != null ? actorMapper.convertActorEntityToActor(enemy) : null);
+            result.setPlayerCurrentHP(Math.max(playerCurrentHP, 0));
+            result.setPlayerMaxHP(player.getBaseHP());
+            result.setEnemyCurrentHP(Math.max(enemyCurrentHP, 0));
+            result.setEnemyMaxHP(enemy.getBaseHP());
+            result.setDamageDealt(playerDamage);
+            result.setDamageTaken(enemyDamage);
+            result.setDotDamageDealt(0); // Beispiel, ggf. anpassen
+            result.setDotDamageTaken(0);
+            result.setHealingDone(0);
+            result.setHealingReceived(0);
+            result.setPlayerStatusEffects(new ArrayList<>()); // ggf. StatusEffekte einfügen
+            result.setEnemyStatusEffects(new ArrayList<>());
+            result.setPlayerAlive(playerAlive);
+            result.setEnemyAlive(enemyAlive);
+            result.setPlayerCriticalHit(playerCrit);
+            result.setEnemyCriticalHit(enemyCrit);
+            result.setXpGained(playerAlive ? 10 : 0); // Beispiel
+            result.setGoldGained(playerAlive ? 5 : 0); // Beispiel
+            result.setPowerUpChoiceIds(roundEntity.getPowerUpChoices() != null
+                    ? roundEntity.getPowerUpChoices().stream().map(p -> p.getId().intValue()).collect(Collectors.toList()) : null);
+            result.setCombatLog(new ArrayList<>(combatLog));
+
+            // In DB speichern
+            gameplayManager.saveRoundResultToRepository(gameplayMapper.convertRoundResultResourceToEntity(result));
+
+            roundResults.add(result);
+
+            // Kampf beenden, wenn einer tot ist
+            if (!playerAlive || !enemyAlive) break;
+        }
+
+        // Runde updaten und speichern
+        roundEntity.setRoundCount(roundCount);
+        roundEntity.setPlayerAlive(playerAlive);
+        gameplayManager.savePowerUpToRepository(roundEntity);
 
         return roundResults;
     }

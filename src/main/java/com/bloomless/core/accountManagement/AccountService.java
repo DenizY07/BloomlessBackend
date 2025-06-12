@@ -11,7 +11,7 @@ import com.bloomless.core.accountManagement.rest.resources.AccountResource;
 import com.bloomless.core.equipmentManagement.data.Actor;
 import com.bloomless.core.equipmentManagement.manager.EquipmentManager;
 import com.bloomless.core.equipmentManagement.mapper.ActorMapper;
-import com.bloomless.core.shopManagement.data.items.*;
+import com.bloomless.core.shopManagement.data.*;
 import com.bloomless.core.shopManagement.database.ItemEntity;
 import com.bloomless.core.shopManagement.database.ShopItemEntity;
 import com.bloomless.core.shopManagement.database.UpgradeItemEntity;

@@ -7,7 +7,7 @@ import com.bloomless.core.equipmentManagement.mapper.ActorMapper;
 import com.bloomless.core.equipmentManagement.rest.dto.ActorDto;
 import com.bloomless.core.equipmentManagement.rest.resources.ActorResource;
 import com.bloomless.core.levelSystem.LevelUp;
-import com.bloomless.core.shopManagement.data.items.*;
+import com.bloomless.core.shopManagement.data.*;
 import com.bloomless.core.shopManagement.manager.ItemManager;
 import com.bloomless.core.shopManagement.mapper.ItemMapper;
 import com.bloomless.core.shopManagement.rest.resources.ItemResource;

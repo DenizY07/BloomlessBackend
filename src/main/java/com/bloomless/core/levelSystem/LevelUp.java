@@ -1,9 +1,9 @@
 package com.bloomless.core.levelSystem;
 
-import com.bloomless.core.shopManagement.data.items.DMGItem;
-import com.bloomless.core.shopManagement.data.items.HPItem;
-import com.bloomless.core.shopManagement.data.items.Item;
-import com.bloomless.core.shopManagement.data.items.UpgradeItem;
+import com.bloomless.core.shopManagement.data.DMGItem;
+import com.bloomless.core.shopManagement.data.HPItem;
+import com.bloomless.core.shopManagement.data.Item;
+import com.bloomless.core.shopManagement.data.UpgradeItem;
 
 public class LevelUp {
 

@@ -1,7 +1,7 @@
 package com.bloomless.core.equipmentManagement.data;
 
-import com.bloomless.core.shopManagement.data.items.DMGItem;
-import com.bloomless.core.shopManagement.data.items.HPItem;
+import com.bloomless.core.shopManagement.data.DMGItem;
+import com.bloomless.core.shopManagement.data.HPItem;
 import lombok.Data;
 
 import java.util.List;

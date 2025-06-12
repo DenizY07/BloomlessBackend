@@ -3,13 +3,9 @@ package com.bloomless.core.shopManagement.restController;
 
 
 import com.bloomless.core.accountManagement.AccountService;
-import com.bloomless.core.accountManagement.data.Account;
 import com.bloomless.core.accountManagement.database.AccountEntity;
-import com.bloomless.core.accountManagement.manager.AccountManager;
 import com.bloomless.core.accountManagement.rest.resources.AccountResource;
 import com.bloomless.core.shopManagement.ShopService;
-import com.bloomless.core.shopManagement.data.items.ShopItem;
-import com.bloomless.core.shopManagement.database.ItemEntity;
 import com.bloomless.core.shopManagement.database.ShopItemEntity;
 import com.bloomless.core.shopManagement.mapper.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;

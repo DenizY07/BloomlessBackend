@@ -1,4 +1,4 @@
-package com.bloomless.core.shopManagement.data.items;
+package com.bloomless.core.shopManagement.data;
 
 import lombok.Data;
 

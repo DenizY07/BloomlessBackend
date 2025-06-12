@@ -1,6 +1,5 @@
-package com.bloomless.core.shopManagement.data.items;
+package com.bloomless.core.shopManagement.data;
 
-import com.bloomless.core.shopManagement.database.ShopItemEntity;
 import lombok.Data;
 
 @Data
@@ -12,4 +11,5 @@ public class DMGItem extends ShopItem {
     private int itemDMG;
     private double itemCritRate;
     private int itemCritDMG;
+
 }

@@ -1,11 +1,11 @@
 package com.bloomless.core.shopManagement.manager;
 
+import com.bloomless.core.shopManagement.data.Rarity;
 import com.bloomless.core.shopManagement.database.DMGItemEntity;
 import com.bloomless.core.shopManagement.database.HPItemEntity;
 import com.bloomless.core.shopManagement.database.ShopItemEntity;
 import com.bloomless.core.shopManagement.database.repositories.ShopItemRepository;
 import com.bloomless.core.shopManagement.exceptions.ItemNotFound;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -71,7 +71,7 @@ public class ShopManager {
         // COMMON
         HPItemEntity leatherHelmet = new HPItemEntity();
         leatherHelmet.setName("Leather Helmet");
-        leatherHelmet.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.COMMON);
+        leatherHelmet.setRarity(Rarity.COMMON);
         leatherHelmet.setLevel(1);
         leatherHelmet.setXp(0);
         leatherHelmet.setPassive("Small Regeneration");
@@ -82,7 +82,7 @@ public class ShopManager {
 
         DMGItemEntity woodenSword = new DMGItemEntity();
         woodenSword.setName("Wooden Sword");
-        woodenSword.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.COMMON);
+        woodenSword.setRarity(Rarity.COMMON);
         woodenSword.setLevel(1);
         woodenSword.setXp(0);
         woodenSword.setPassive("Quick Strike");
@@ -94,7 +94,7 @@ public class ShopManager {
         // UNCOMMON
         HPItemEntity chainMail = new HPItemEntity();
         chainMail.setName("Chainmail");
-        chainMail.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.UNCOMMON);
+        chainMail.setRarity(Rarity.UNCOMMON);
         chainMail.setLevel(2);
         chainMail.setXp(0);
         chainMail.setPassive("Strong Regeneration");
@@ -105,7 +105,7 @@ public class ShopManager {
 
         DMGItemEntity ironAxe = new DMGItemEntity();
         ironAxe.setName("Iron Axe");
-        ironAxe.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.UNCOMMON);
+        ironAxe.setRarity(Rarity.UNCOMMON);
         ironAxe.setLevel(2);
         ironAxe.setXp(0);
         ironAxe.setPassive("Pierce");
@@ -117,7 +117,7 @@ public class ShopManager {
         // RARE
         HPItemEntity silverChestplate = new HPItemEntity();
         silverChestplate.setName("Silver Chestplate");
-        silverChestplate.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.RARE);
+        silverChestplate.setRarity(Rarity.RARE);
         silverChestplate.setLevel(3);
         silverChestplate.setXp(0);
         silverChestplate.setPassive("Block");
@@ -128,7 +128,7 @@ public class ShopManager {
 
         DMGItemEntity silverDagger = new DMGItemEntity();
         silverDagger.setName("Silver Dagger");
-        silverDagger.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.RARE);
+        silverDagger.setRarity(Rarity.RARE);
         silverDagger.setLevel(3);
         silverDagger.setXp(0);
         silverDagger.setPassive("Poison Blade");
@@ -140,7 +140,7 @@ public class ShopManager {
         // EPIC
         HPItemEntity goldenShield = new HPItemEntity();
         goldenShield.setName("Golden Shield");
-        goldenShield.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.EPIC);
+        goldenShield.setRarity(Rarity.EPIC);
         goldenShield.setLevel(4);
         goldenShield.setXp(0);
         goldenShield.setPassive("Reflection");
@@ -151,7 +151,7 @@ public class ShopManager {
 
         DMGItemEntity dragonSword = new DMGItemEntity();
         dragonSword.setName("Dragon Sword");
-        dragonSword.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.EPIC);
+        dragonSword.setRarity(Rarity.EPIC);
         dragonSword.setLevel(4);
         dragonSword.setXp(0);
         dragonSword.setPassive("Flame Slash");
@@ -163,7 +163,7 @@ public class ShopManager {
         // LEGENDARY
         HPItemEntity phoenixArmor = new HPItemEntity();
         phoenixArmor.setName("Phoenix Armor");
-        phoenixArmor.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.LEGENDARY);
+        phoenixArmor.setRarity(Rarity.LEGENDARY);
         phoenixArmor.setLevel(5);
         phoenixArmor.setXp(0);
         phoenixArmor.setPassive("Rebirth");
@@ -174,7 +174,7 @@ public class ShopManager {
 
         DMGItemEntity excalibur = new DMGItemEntity();
         excalibur.setName("Excalibur");
-        excalibur.setRarity(com.bloomless.core.shopManagement.data.items.Rarity.LEGENDARY);
+        excalibur.setRarity(Rarity.LEGENDARY);
         excalibur.setLevel(5);
         excalibur.setXp(0);
         excalibur.setPassive("Holy Strike");

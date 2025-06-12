@@ -1,7 +1,8 @@
 package com.bloomless.core.accountManagement.data;
 
-import com.bloomless.core.shopManagement.data.items.Item;
+import com.bloomless.core.shopManagement.data.Item;
 import lombok.Data;
+
 
 import java.util.List;
 

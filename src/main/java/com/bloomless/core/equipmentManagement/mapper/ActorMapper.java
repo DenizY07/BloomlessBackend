@@ -4,8 +4,8 @@ import com.bloomless.core.equipmentManagement.data.Actor;
 import com.bloomless.core.equipmentManagement.database.ActorEntity;
 import com.bloomless.core.equipmentManagement.rest.dto.ActorDto;
 import com.bloomless.core.equipmentManagement.rest.resources.ActorResource;
-import com.bloomless.core.shopManagement.data.items.DMGItem;
-import com.bloomless.core.shopManagement.data.items.HPItem;
+import com.bloomless.core.shopManagement.data.DMGItem;
+import com.bloomless.core.shopManagement.data.HPItem;
 import com.bloomless.core.shopManagement.mapper.ItemMapper;
 
 import java.util.stream.Collectors;

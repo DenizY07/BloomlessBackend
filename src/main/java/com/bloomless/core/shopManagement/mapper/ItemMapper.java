@@ -1,6 +1,6 @@
 package com.bloomless.core.shopManagement.mapper;
 
-import com.bloomless.core.shopManagement.data.items.*;
+import com.bloomless.core.shopManagement.data.*;
 import com.bloomless.core.shopManagement.database.*;
 import com.bloomless.core.shopManagement.rest.dtos.*;
 import com.bloomless.core.shopManagement.rest.resources.DMGItemResource;

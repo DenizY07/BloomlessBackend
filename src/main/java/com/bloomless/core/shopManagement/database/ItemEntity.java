@@ -1,7 +1,7 @@
 package com.bloomless.core.shopManagement.database;
 
 import com.bloomless.core.accountManagement.database.AccountEntity;
-import com.bloomless.core.shopManagement.data.items.Rarity;
+import com.bloomless.core.shopManagement.data.Rarity;
 import jakarta.persistence.*;
 import lombok.Data;
 
