@@ -18,6 +18,7 @@ public class ActorEntity {
     private int level;
     private int baseDMG;
     private int baseHP;
+    private int currentHP;
     private int baseDEF;
     private int baseRegen;
     private int baseCritRate;

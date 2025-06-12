@@ -87,6 +87,7 @@ public class AccountMapper {
                     .map(item -> {
                         if (item instanceof DMGItem dmg) {
                             DMGItemDto dto = new DMGItemDto();
+                            dto.setId(dmg.getId());
                             dto.setName(dmg.getName());
                             dto.setLevel(dmg.getLevel());
                             dto.setXp(dmg.getXp());
@@ -100,6 +101,7 @@ public class AccountMapper {
                         } else if (item instanceof HPItem hp) {
                             HPItemDto dto = new HPItemDto();
                             dto.setName(hp.getName());
+                            dto.setId(hp.getId());
                             dto.setLevel(hp.getLevel());
                             dto.setXp(hp.getXp());
                             dto.setPassive(hp.getPassive());
@@ -111,6 +113,7 @@ public class AccountMapper {
                             return dto;
                         } else if (item instanceof UpgradeItem up) {
                             UpgradeItemDto dto = new UpgradeItemDto();
+                            dto.setId(up.getId());
                             dto.setName(up.getName());
                             dto.setType("upgrade");
                             dto.setRarity(up.getRarity().name());

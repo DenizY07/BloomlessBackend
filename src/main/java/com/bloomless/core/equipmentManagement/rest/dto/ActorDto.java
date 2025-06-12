@@ -13,6 +13,7 @@ public class ActorDto {
     private String name;
     private int baseDMG;
     private int baseHP;
+    private int currentHP;
     private int baseDEF;
     private int baseRegen;
     private int baseCritRate;

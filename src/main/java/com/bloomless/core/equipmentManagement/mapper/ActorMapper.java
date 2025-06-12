@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class ActorMapper {
 
     public ItemMapper itemMapper = new ItemMapper();
+    public StatusEffectMapper statusEffectMapper = new StatusEffectMapper();
 
     /*public ActorDto convertActorToActorDto(Actor actor) {
         if (actor == null) return null;
@@ -72,7 +73,7 @@ public class ActorMapper {
         actor.setHpSlot2((HPItem) itemMapper.convertItemEntityToItem(entity.getHpSlot2()));
         if (entity.getActiveEffects() != null) {
             actor.setStatusEffects(entity.getActiveEffects().stream()
-                    .map(StatusEffectMapper::convertStatusEffectEntityToStatusEffect)
+                    .map(statusEffectMapper::convertStatusEffectEntityToStatusEffect)
                     .collect(Collectors.toList()));
         }
         return actor;

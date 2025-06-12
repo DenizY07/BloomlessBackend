@@ -7,14 +7,16 @@ import com.bloomless.core.equipmentManagement.rest.resources.StatusEffectResourc
 
 public class StatusEffectMapper {
 
-    public static StatusEffect convertStatusEffectEntityToStatusEffect(StatusEffectEntity entity) {
+    public StatusEffect convertStatusEffectEntityToStatusEffect(StatusEffectEntity entity) {
         if (entity == null) return null;
         StatusEffect effect = new StatusEffect();
+        effect.setId(entity.getId());
         effect.setEffectType(entity.getType());
         effect.setDamagePerTurn(entity.getDamagePerTurn());
         effect.setRemainingTurns(entity.getRemainingTurns());
         return effect;
     }
+
 
     public static StatusEffectDto convertStatusEffectToStatusEffectDto(StatusEffect effect) {
         if (effect == null) return null;
